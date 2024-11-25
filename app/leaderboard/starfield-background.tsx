@@ -38,11 +38,7 @@ export default function WarpSpeedBackground() {
     }))
 
     // Animation settings
-    const speed = 50
-    const starColor = (z: number) => {
-      const intensity = Math.min(1, (2000 - z) / 1000)
-      return `rgba(255, 255, 255, ${intensity})`
-    }
+    const speed = 25
 
     function moveStars() {
       stars.forEach(star => {
@@ -58,8 +54,8 @@ export default function WarpSpeedBackground() {
     }
 
     function drawStars() {
-        if (!ctx) return
-        if (!canvas) return
+      if (!ctx) return
+      if (!canvas) return
     
       const centerX = canvas!.width / 2
       const centerY = canvas!.height / 2
