@@ -15,14 +15,9 @@ export default function LeaderboardPage() {
               <span className="text-white text-sm">🏆</span>
               <h1 className={`${pixelFont.className} text-white text-lg`}>Leaderboard.exe</h1>
             </div>
-            <div className="flex gap-1">
-              <button className="bg-[#c0c0c0] border-t border-l border-white border-b border-r border-[#808080] px-2 text-sm hover:active:bg-[#c0c0c0]">_</button>
-              <button className="bg-[#c0c0c0] border-t border-l border-white border-b border-r border-[#808080] px-2 text-sm hover:active:bg-[#c0c0c0]">□</button>
-              <button className="bg-[#c0c0c0] border-t border-l border-white border-b border-r border-[#808080] px-2 text-sm hover:active:bg-[#c0c0c0]">×</button>
-            </div>
           </div>
           
-          <div className="p-4 flex-1 overflow-auto">
+          <div className="p-1 flex-1 overflow-auto">
             <LeaderboardTable />
           </div>
         </div>
