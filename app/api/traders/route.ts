@@ -4,6 +4,7 @@ import { fetchTraderData, TraderInfo } from '../../lib/bybit-api'
 const traders: TraderInfo[] = [
   { name: 'DIESEL', apiKey: process.env.DIESEL_API_KEY!, apiSecret: process.env.DIESEL_API_SECRET! },
   { name: 'EDUARDO', apiKey: process.env.EDUARDO_API_KEY!, apiSecret: process.env.EDUARDO_API_SECRET! },
+  { name: 'VANPA', apiKey: process.env.VANPA_API_KEY!, apiSecret: process.env.VANPA_API_SECRET! },
 ].filter(trader => trader.apiKey && trader.apiSecret);
 
 export async function GET() {
