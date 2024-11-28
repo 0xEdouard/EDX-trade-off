@@ -1,6 +1,7 @@
 import LeaderboardTable from './leaderboard-table'
 import { VT323 } from 'next/font/google'
 import WarpSpeedBackground from './starfield-background'
+import AudioControls from './audio-controls'
 
 const pixelFont = VT323({ weight: '400', subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function LeaderboardPage() {
           </div>
         </div>
       </div>
+      <AudioControls />
     </div>
   )
 }
