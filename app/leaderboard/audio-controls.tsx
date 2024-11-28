@@ -8,7 +8,7 @@ export default function AudioControls() {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 1 // Set initial volume to 50%
+      audioRef.current.volume = 1 // Set initial volume to 100%
     }
   }, [])
 
