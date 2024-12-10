@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { fetchTraderData, TraderInfo } from '../../lib/bybit-api'
-import { addWalletBalanceHistory, getAllUsers } from '@/app/database/db';
+import { addWalletBalanceHistory, getAllUsers } from '@/app/lib/db';
 
 
 let users: User[] = [];
@@ -18,12 +18,6 @@ await getAllUsers().then((users_db: User[]) => {
 export async function GET() {
   try {
     const traderData = await Promise.all(traders.map(fetchTraderData));
-    console.log(traderData);
-    const timestamp = Date.now();
-    users.map(async (user: User) => {
-      const balance = traderData.find(data => data.name == user.name)?.amount;
-      const responseDB = await addWalletBalanceHistory(user.id, balance!, new Date(timestamp))
-    })
     return NextResponse.json(traderData)
   } catch (error) {
     console.error('Error fetching trader data:', error)

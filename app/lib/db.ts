@@ -1,4 +1,3 @@
-import { UUID } from "crypto";
 import { Pool } from "pg";
 
 const pool = new Pool({
