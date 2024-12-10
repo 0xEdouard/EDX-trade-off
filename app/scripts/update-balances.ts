@@ -1,5 +1,6 @@
 import { Pool } from 'pg'
 import { RestClientV5 } from 'bybit-api'
+import { getAllUsers, addWalletBalanceHistory } from '../lib/db';
 
 const pool = new Pool({
     user: "postgres",
@@ -8,19 +9,6 @@ const pool = new Pool({
     password: "eduroam",
     port: 5432
 });
-
-async function getAllUsers(): Promise<User[]> {
-  const result = await pool.query('SELECT * FROM "user";')
-  return result.rows
-}
-
-async function addWalletBalanceHistory(userId: string, balance: number, timestamp: Date): Promise<void> {
-  await pool.query(
-    `INSERT INTO balenciaga (user_id, balance, timestamp)
-     VALUES ($1, $2, $3);`,
-    [userId, balance, timestamp]
-  )
-}
 
 async function fetchUserBalance(apiKey: string, apiSecret: string): Promise<number> {
   const client = new RestClientV5({

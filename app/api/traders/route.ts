@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { fetchTraderData, TraderInfo } from '../../lib/bybit-api'
-import { addWalletBalanceHistory, getAllUsers } from '@/app/lib/db';
+import { getAllUsers } from '@/app/lib/db';
+import { User } from '@/app/types/User';
 
 
 let users: User[] = [];

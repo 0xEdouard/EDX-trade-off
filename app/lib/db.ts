@@ -1,4 +1,5 @@
 import { Pool } from "pg";
+import { User } from "../types/User";
 
 const pool = new Pool({
     user: "postgres",
