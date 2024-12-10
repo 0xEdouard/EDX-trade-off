@@ -26,6 +26,12 @@ jobs:
       - name: Build Next.js App
         run: npm run build
 
+        - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+
       - name: Copy Files to EC2
         env:
           EC2_HOST: ubuntu@51.20.135.233
