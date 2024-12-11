@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 import { RestClientV5 } from "bybit-api";
-import { getAllUsers, addWalletBalanceHistory } from "../app/lib/db";
+import { getAllUsers, addWalletBalanceHistory } from "../lib/db";
 
 const pool = new Pool({
   host: "127.0.0.1",
