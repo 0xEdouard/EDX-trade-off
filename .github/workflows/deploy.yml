@@ -45,6 +45,8 @@ jobs:
           EC2_HOST: ubuntu@51.20.135.233
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $EC2_HOST << EOF
+          export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+          npm install -g pm2
           mkdir -p ~/app && tar -xzf ~/app.tar.gz -C ~/app && cd ~/app
           npm install --production
           pm2 stop all || true
