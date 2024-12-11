@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p deploy
           tar -czf deploy/app.tar.gz .next package.json package-lock.json
-          scp -i ~/.ssh/deploy_key deploy/app.tar.gz $EC2_HOST:~/app.tar.gz
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key deploy/app.tar.gz $EC2_HOST:~/app.tar.gz
 
       - name: Deploy on EC2
         env:
