@@ -49,6 +49,6 @@ jobs:
           npm install --production
           pm2 stop all || true
           pm2 start npm --name "edx" -- start
-          pm2 start scripts/update-balances.js --name "edx-update-balances" --cron "*/5 * * * *" --no-autorestart
+          pm2 start scripts/update-balances.ts --name "edx-update-balances" --cron "*/5 * * * *" --no-autorestart
           pm2 save
           EOF
