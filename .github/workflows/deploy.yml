@@ -34,7 +34,7 @@ jobs:
 
       - name: Copy Files to EC2
         env:
-          EC2_HOST: ubuntu@51.20.135.233
+          EC2_HOST: edx@116.203.184.18
         run: |
           mkdir -p deploy
           tar -czf deploy/app.tar.gz .next package.json package-lock.json
@@ -42,7 +42,7 @@ jobs:
 
       - name: Deploy on EC2
         env:
-          EC2_HOST: ubuntu@51.20.135.233
+          EC2_HOST: edx@116.203.184.18
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $EC2_HOST << EOF
           export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
