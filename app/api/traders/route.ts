@@ -7,14 +7,19 @@ let users: User[] = [];
 let traders: TraderInfo[] = [];
 
 if (process.env.NEXT_PHASE !== "PHASE_PRODUCTION_BUILD") {
-  await getAllUsers().then((users_db: User[]) => {
-    users = users_db;
-    traders = users.map((user: User) => ({
-      name: user.name,
-      apiKey: user.api_key,
-      apiSecret: user.api_secret,
-    }));
-  });
+  (async () => {
+    try {
+      const users_db = await getAllUsers();
+      users = users_db;
+      traders = users.map((user: User) => ({
+        name: user.name,
+        apiKey: user.api_key,
+        apiSecret: user.api_secret,
+      }));
+    } catch (error) {
+      console.error("Error initializing users and traders:", error);
+    }
+  })();
 }
 
 export async function GET() {
