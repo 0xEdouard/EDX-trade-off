@@ -37,7 +37,7 @@ jobs:
           EC2_HOST: edx@116.203.184.18
         run: |
           mkdir -p deploy
-          tar -czf deploy/app.tar.gz .next package.json package-lock.json public
+          tar -czf deploy/app.tar.gz .next package.json package-lock.json public scripts
           scp -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key deploy/app.tar.gz $EC2_HOST:~/app.tar.gz
 
       - name: Deploy on Hezner Cloud
