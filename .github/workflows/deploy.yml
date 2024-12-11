@@ -1,4 +1,4 @@
-name: Deploy to AWS EC2
+name: Deploy to Hezner Cloud
 
 on:
   push:
@@ -32,23 +32,23 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      - name: Copy Files to EC2
+      - name: Copy Files to Hezner Cloud
         env:
           EC2_HOST: edx@116.203.184.18
         run: |
           mkdir -p deploy
-          tar -czf deploy/app.tar.gz .next package.json package-lock.json
+          tar -czf deploy/app.tar.gz .next package.json package-lock.json public
           scp -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key deploy/app.tar.gz $EC2_HOST:~/app.tar.gz
 
-      - name: Deploy on EC2
+      - name: Deploy on Hezner Cloud
         env:
           EC2_HOST: edx@116.203.184.18
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $EC2_HOST << EOF
-          export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-          npm install -g pm2
-          mkdir -p ~/app && tar -xzf ~/app.tar.gz -C ~/app && cd ~/app
+          mkdir -p ~/edx && tar -xzf ~/app.tar.gz -C ~/edx && cd ~/edx
           npm install --production
           pm2 stop all || true
-          pm2 start npm --name "nextjs-app" -- start
+          pm2 start npm --name "edx" -- start
+          pm2 start app/scripts/update-balances.ts --name "edx-update-balances" --cron "*/5 * * * *" --no-autorestart
+          pm2 save
           EOF
