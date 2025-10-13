@@ -18,7 +18,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=proxy
-      - traefik.http.routers.edx.rule=Host(`edx.edouard.lol`) || Host(`www.edx.edouard.lol`)
+      - traefik.http.routers.edx.rule=Host(`edx.edouard.lol`)
       - traefik.http.routers.edx.entrypoints=websecure
       - traefik.http.routers.edx.tls.certresolver=le
       - traefik.http.services.edx.loadbalancer.server.port=80
