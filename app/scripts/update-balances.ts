@@ -1,14 +1,9 @@
-import { Pool } from "pg";
 import { RestClientV5 } from "bybit-api";
-import { getAllUsers, addWalletBalanceHistory } from "../lib/db";
-
-const pool = new Pool({
-  host: "127.0.0.1",
-  port: 5432,
-  database: "edx",
-  user: "postgres",
-  password: "eduroam",
-});
+import {
+  getAllUsers,
+  addWalletBalanceHistory,
+  closePool,
+} from "../lib/db";
 
 async function fetchUserBalance(
   apiKey: string,
@@ -45,7 +40,7 @@ async function updateBalances() {
   } catch (error) {
     console.error("Error updating balances:", error);
   } finally {
-    await pool.end();
+    await closePool();
   }
 }
 

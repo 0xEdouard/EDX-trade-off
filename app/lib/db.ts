@@ -1,12 +1,36 @@
 import { Pool } from "pg";
 import { User } from "../types/User";
 
+const {
+  DATABASE_HOST,
+  DATABASE_PORT,
+  DATABASE_NAME,
+  DATABASE_USER,
+  DATABASE_PASSWORD,
+  DATABASE_SSL,
+} = process.env;
+
+const missingEnvVars = [
+  ["DATABASE_HOST", DATABASE_HOST],
+  ["DATABASE_PORT", DATABASE_PORT],
+  ["DATABASE_NAME", DATABASE_NAME],
+  ["DATABASE_USER", DATABASE_USER],
+  ["DATABASE_PASSWORD", DATABASE_PASSWORD],
+].filter(([, value]) => !value);
+
+if (missingEnvVars.length > 0) {
+  const keys = missingEnvVars.map(([key]) => key).join(", ");
+  throw new Error(`Database configuration error: missing environment variables (${keys}).`);
+}
+
 const pool = new Pool({
-  host: "127.0.0.1",
-  port: 5432,
-  database: "edx",
-  user: "postgres",
-  password: "eduroam",
+  host: DATABASE_HOST,
+  port: Number(DATABASE_PORT),
+  database: DATABASE_NAME,
+  user: DATABASE_USER,
+  password: DATABASE_PASSWORD,
+  ssl: DATABASE_SSL === "true" ? { rejectUnauthorized: false } : undefined,
+  allowExitOnIdle: true,
 });
 
 export const getAllUsers = async (): Promise<User[]> => {
@@ -41,4 +65,8 @@ export const addWalletBalanceHistory = async (
      VALUES ($1, $2, $3);`,
     [userId, balance, timestamp]
   );
+};
+
+export const closePool = async () => {
+  await pool.end();
 };
